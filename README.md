@@ -35,16 +35,34 @@ npx @citedy/skills list
 
 ## Available Skills
 
+### Extraction Skills
+
+| Name | Slash Command | Description | Requires |
+|------|---------------|-------------|----------|
+| `youtube` | `/any-youtube` | Extract structured metadata from any public YouTube video | AnyCrawl API |
+| `instagram` | `/any-instagram` | Extract public Instagram profile, post, and reel data | AnyCrawl API |
+| `tiktok` | `/any-tiktok` | Extract public TikTok video, profile, and hashtag data | AnyCrawl API |
+| `social` | `/any-social` | Auto-detect platform and route to the correct extractor | AnyCrawl API |
+
+### Knowledge Skills (no API keys needed)
+
 | Name | Slash Command | Description |
 |------|---------------|-------------|
-| `youtube` | `/any-youtube` | Extract structured metadata from any public YouTube video |
-| `instagram` | `/any-instagram` | Extract public Instagram profile, post, and reel data |
-| `tiktok` | `/any-tiktok` | Extract public TikTok video, profile, and hashtag data |
-| `social` | `/any-social` | Auto-detect platform and route to the correct extractor |
+| `schema` | `/schema-markup` | Add, fix, or optimize schema.org JSON-LD structured data |
+| `icons` | `/icon-design` | Select semantically appropriate icons (Lucide/Heroicons/Phosphor) |
+| `domains` | `/domain-hunter` | Search domains, compare prices, find promo codes |
+| `skill-eval` | `/skill-eval` | Validate slash command quality (frontmatter, jargon, descriptions) |
 
-More skills coming soon — SEO analysis, content generation, competitor research, and more.
+### Agent Team Skills (Claude Code only)
 
-All current skills use the [AnyCrawl](https://anycrawl.dev) Scrape API for LLM-powered structured data extraction.
+| Name | Slash Command | Description |
+|------|---------------|-------------|
+| `spawning-plan` | `/spawning-plan` | Design and spawn optimal agent teams |
+| `code-review` | `/code-review-team` | Parallel multi-agent code review with 4 reviewers |
+
+> Agent Team skills require Claude Code with Agent Teams support (TeamCreate, TaskCreate, SendMessage).
+
+Extraction skills use the [AnyCrawl](https://anycrawl.dev) Scrape API for LLM-powered structured data extraction.
 
 ## Setup
 

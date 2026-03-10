@@ -30,13 +30,19 @@ citedy-skills/
 
 ## Adding a New Skill
 
+### Skill Types
+
+1. **Extraction skills** — have `scripts/run.js`, require API keys (e.g., AnyCrawl)
+2. **Knowledge skills** — SKILL.md + references only, no scripts, no API keys (e.g., schema-markup, icon-design)
+3. **Agent Team skills** — require Claude Code Agent Teams API (TeamCreate, TaskCreate, SendMessage)
+
 ### 1. Create skill directory
 
 ```
 skills/<skill-name>/
 ├── SKILL.md              # Required — Claude Code reads this
-├── scripts/run.js        # Required — executable Node.js script
-├── references/           # Optional — docs, notes
+├── scripts/run.js        # Optional — executable Node.js script (extraction skills)
+├── references/           # Optional — docs, notes, checklists
 └── agents/openai.yaml    # Optional — Codex/OpenAI config
 ```
 

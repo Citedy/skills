@@ -28,6 +28,36 @@ const CATALOG = {
     command: "any-social.md",
     description: "Auto-detect platform and route to correct extractor",
   },
+  schema: {
+    skill: "schema-markup",
+    command: "schema-markup.md",
+    description: "Add, fix, or optimize schema markup (JSON-LD)",
+  },
+  icons: {
+    skill: "icon-design",
+    command: "icon-design.md",
+    description: "Select semantically appropriate icons (Lucide/Heroicons/Phosphor)",
+  },
+  "spawning-plan": {
+    skill: "spawning-plan",
+    command: "spawning-plan.md",
+    description: "Design and spawn optimal agent teams (Claude Code)",
+  },
+  "code-review": {
+    skill: "code-review-agent-team",
+    command: "code-review-team.md",
+    description: "Parallel multi-agent code review (Claude Code)",
+  },
+  domains: {
+    skill: "domain-hunter",
+    command: "domain-hunter.md",
+    description: "Search domains, compare prices, find promo codes",
+  },
+  "skill-eval": {
+    skill: "skill-quality-eval",
+    command: "skill-eval.md",
+    description: "Validate slash command quality (frontmatter, descriptions, jargon)",
+  },
 };
 
 function copyDirSync(src, dest) {
