@@ -1,0 +1,4 @@
+interface:
+  display_name: "AnyCrawl Social"
+  short_description: "Auto-detect social URL and extract via AnyCrawl"
+  default_prompt: "Use $anycrawl-social-extractor to detect the platform from this social URL and extract all available public data via AnyCrawl."

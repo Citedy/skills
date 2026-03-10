@@ -1,0 +1,4 @@
+interface:
+  display_name: "AnyCrawl TikTok"
+  short_description: "Extract TikTok data from a public URL"
+  default_prompt: "Use $anycrawl-tiktok-scraper to extract all available TikTok data from this public URL via AnyCrawl."

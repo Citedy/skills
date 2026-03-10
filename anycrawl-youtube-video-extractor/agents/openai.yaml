@@ -1,0 +1,4 @@
+interface:
+  display_name: "AnyCrawl YouTube"
+  short_description: "Extract YouTube video data from a watch URL"
+  default_prompt: "Use $anycrawl-youtube-video-extractor to extract all available YouTube video data from this public watch URL via AnyCrawl."

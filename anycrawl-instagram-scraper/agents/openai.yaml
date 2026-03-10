@@ -1,0 +1,4 @@
+interface:
+  display_name: "AnyCrawl Instagram"
+  short_description: "Extract Instagram data from a public URL"
+  default_prompt: "Use $anycrawl-instagram-scraper to extract all available Instagram data from this public URL via AnyCrawl."
