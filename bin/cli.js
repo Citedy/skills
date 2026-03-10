@@ -1,0 +1,154 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const path = require("path");
+
+const PACKAGE_ROOT = path.resolve(__dirname, "..");
+const SKILLS_SRC = path.join(PACKAGE_ROOT, "skills");
+const COMMANDS_SRC = path.join(PACKAGE_ROOT, "commands");
+
+const CATALOG = {
+  youtube: {
+    skill: "anycrawl-youtube-video-extractor",
+    command: "any-youtube.md",
+    description: "Extract YouTube video metadata",
+  },
+  instagram: {
+    skill: "anycrawl-instagram-scraper",
+    command: "any-instagram.md",
+    description: "Extract Instagram profile/post/reel data",
+  },
+  tiktok: {
+    skill: "anycrawl-tiktok-scraper",
+    command: "any-tiktok.md",
+    description: "Extract TikTok video/profile data",
+  },
+  social: {
+    skill: "anycrawl-social-extractor",
+    command: "any-social.md",
+    description: "Auto-detect platform and route to correct extractor",
+  },
+};
+
+function copyDirSync(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirSync(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+function findProjectRoot() {
+  let dir = process.cwd();
+  while (true) {
+    if (
+      fs.existsSync(path.join(dir, "package.json")) ||
+      fs.existsSync(path.join(dir, ".git")) ||
+      fs.existsSync(path.join(dir, ".claude"))
+    ) {
+      return dir;
+    }
+    const parent = path.dirname(dir);
+    if (parent === dir) return process.cwd();
+    dir = parent;
+  }
+}
+
+function printUsage() {
+  console.log(`
+@citedy/skills — Claude Code skill installer
+
+Usage:
+  npx @citedy/skills install [names...]   Install skills (default: all)
+  npx @citedy/skills list                 List available skills
+  npx @citedy/skills update               Re-install all (overwrite)
+
+Examples:
+  npx @citedy/skills install              Install all skills + commands
+  npx @citedy/skills install youtube      Install YouTube extractor only
+  npx @citedy/skills install youtube tiktok
+
+Available skills: ${Object.keys(CATALOG).join(", ")}
+`);
+}
+
+function listSkills() {
+  console.log("\nAvailable skills:\n");
+  for (const [name, info] of Object.entries(CATALOG)) {
+    console.log(`  ${name.padEnd(12)} ${info.description}`);
+    console.log(`  ${"".padEnd(12)} skill: ${info.skill}`);
+    console.log(`  ${"".padEnd(12)} command: /${info.command.replace(".md", "")}`);
+    console.log();
+  }
+}
+
+function installSkills(names, overwrite = false) {
+  const root = findProjectRoot();
+  const skillsDest = path.join(root, ".claude", "skills");
+  const commandsDest = path.join(root, ".claude", "commands");
+
+  fs.mkdirSync(skillsDest, { recursive: true });
+  fs.mkdirSync(commandsDest, { recursive: true });
+
+  let installed = 0;
+
+  for (const name of names) {
+    const entry = CATALOG[name];
+    if (!entry) {
+      console.error(`  Unknown skill: "${name}". Available: ${Object.keys(CATALOG).join(", ")}`);
+      continue;
+    }
+
+    const skillDest = path.join(skillsDest, entry.skill);
+    if (fs.existsSync(skillDest) && !overwrite) {
+      console.log(`  skip  ${entry.skill} (already exists, use 'update' to overwrite)`);
+      continue;
+    }
+
+    copyDirSync(path.join(SKILLS_SRC, entry.skill), skillDest);
+    console.log(`  skill ${entry.skill}`);
+
+    const cmdSrc = path.join(COMMANDS_SRC, entry.command);
+    const cmdDest = path.join(commandsDest, entry.command);
+    if (fs.existsSync(cmdSrc)) {
+      fs.copyFileSync(cmdSrc, cmdDest);
+      console.log(`  cmd   /${entry.command.replace(".md", "")}`);
+    }
+
+    installed++;
+  }
+
+  if (installed > 0) {
+    console.log(`\nInstalled ${installed} skill(s) to ${path.relative(process.cwd(), skillsDest)}`);
+    console.log("\nNext: add ANYCRAWL_API_KEY_DEV=... to your .env.local");
+    console.log("Docs: https://github.com/Citedy/skills");
+  }
+}
+
+const [, , command, ...args] = process.argv;
+
+switch (command) {
+  case "install": {
+    const names = args.length > 0 ? args : Object.keys(CATALOG);
+    console.log("\nInstalling Citedy skills...\n");
+    installSkills(names);
+    break;
+  }
+  case "update": {
+    const names = args.length > 0 ? args : Object.keys(CATALOG);
+    console.log("\nUpdating Citedy skills...\n");
+    installSkills(names, true);
+    break;
+  }
+  case "list":
+    listSkills();
+    break;
+  default:
+    printUsage();
+    break;
+}

@@ -1,0 +1,38 @@
+{
+  "name": "@citedy/skills",
+  "version": "1.0.0",
+  "description": "Curated collection of Claude Code skills by Citedy — install with one command",
+  "license": "MIT",
+  "author": "Citedy <hello@citedy.com> (https://www.citedy.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Citedy/skills.git"
+  },
+  "homepage": "https://github.com/Citedy/skills#readme",
+  "keywords": [
+    "claude-code",
+    "claude-skills",
+    "anycrawl",
+    "web-scraping",
+    "youtube-scraper",
+    "instagram-scraper",
+    "tiktok-scraper",
+    "social-media",
+    "seo",
+    "ai-tools",
+    "content-extraction"
+  ],
+  "bin": {
+    "citedy-skills": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "commands/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
