@@ -1,6 +1,6 @@
 # Citedy Skills
 
-Curated collection of [Claude Code](https://claude.com/claude-code) & [Codex](https://openai.com/codex) skills by [Citedy](https://www.citedy.com) — AI-powered SEO content automation.
+Curated collection of AI agent skills by [Citedy](https://www.citedy.com) — works with [Claude Code](https://claude.com/claude-code), [Codex](https://openai.com/codex), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Droid](https://droid.dev), and any AI coding agent that reads `.md` skill files.
 
 > **This package is actively maintained.** We regularly add new skills and improve existing ones.
 > Run `npx @citedy/skills update` to get the latest version at any time.

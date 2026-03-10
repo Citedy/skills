@@ -1,7 +1,7 @@
 {
   "name": "@citedy/skills",
   "version": "1.1.0",
-  "description": "Curated collection of Claude Code skills by Citedy — install with one command",
+  "description": "Curated AI agent skills — works with Claude Code, Codex, Gemini CLI, Droid, and any AI coding agent",
   "license": "MIT",
   "author": "Citedy <hello@citedy.com> (https://www.citedy.com)",
   "repository": {
