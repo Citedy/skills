@@ -26,25 +26,13 @@ Inside the user environment:
 
 ## Quick Install
 
-### From `Citedy/skills` Monorepo
-
-If this package is published as a folder inside `github.com/Citedy/skills`, install it like this:
+### Standalone Repo via OpenSkills
 
 ```bash
-git clone https://github.com/Citedy/skills.git
-cd /path/to/your-target-repo
-bash /path/to/skills/codex-symphony/scripts/install.sh
+npx openskills install Citedy/codex-symphony
 ```
 
-Or explicitly target another repo:
-
-```bash
-bash /path/to/skills/codex-symphony/scripts/install.sh /absolute/path/to/your/repo
-```
-
-### From a Standalone Repo
-
-If this package is later published as its own repository, the flow becomes:
+### Standalone Repo via GitHub
 
 ```bash
 git clone https://github.com/Citedy/codex-symphony.git
@@ -52,9 +40,15 @@ cd /path/to/your-target-repo
 bash /path/to/codex-symphony/scripts/install.sh
 ```
 
+### From `@citedy/skills`
+
+```bash
+npx @citedy/skills install symphony
+```
+
 ### Direct Local Usage
 
-Clone this package somewhere on disk, then from the repository you want to automate:
+If you already have this repository somewhere on disk, run from the repository you want to automate:
 
 ```bash
 bash /path/to/codex-symphony/scripts/install.sh
@@ -118,12 +112,3 @@ http://127.0.0.1:4080/
 - The workflow assumes active Linear states `Todo` and `In Progress`.
 - If your team uses different state names, edit `WORKFLOW.symphony.md`.
 - The package is structured so it can live either inside `Citedy/skills` or in a dedicated `Citedy/codex-symphony` repository without internal file changes.
-
-## Future Distribution
-
-This package is ready for two share modes:
-
-1. `github.com/Citedy/skills` as `codex-symphony/`
-2. standalone repo `github.com/Citedy/codex-symphony`
-
-Once the standalone repo exists, you can also expose it through your normal skill distribution channels such as `skill-installer` and `openskills`.
