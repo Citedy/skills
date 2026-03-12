@@ -58,6 +58,11 @@ const CATALOG = {
     command: "skill-eval.md",
     description: "Validate slash command quality (frontmatter, descriptions, jargon)",
   },
+  symphony: {
+    skill: "codex-symphony",
+    command: "codex-symphony.md",
+    description: "Bootstrap local OpenAI Symphony + Linear orchestration",
+  },
 };
 
 function copyDirSync(src, dest) {
@@ -121,6 +126,9 @@ function installSkills(names, overwrite = false) {
   const root = findProjectRoot();
   const skillsDest = path.join(root, ".claude", "skills");
   const commandsDest = path.join(root, ".claude", "commands");
+  const anycrawlSkills = new Set(["youtube", "instagram", "tiktok", "social"]);
+  const includesAnycrawl = names.some((name) => anycrawlSkills.has(name));
+  const includesSymphony = names.includes("symphony");
 
   fs.mkdirSync(skillsDest, { recursive: true });
   fs.mkdirSync(commandsDest, { recursive: true });
@@ -155,7 +163,12 @@ function installSkills(names, overwrite = false) {
 
   if (installed > 0) {
     console.log(`\nInstalled ${installed} skill(s) to ${path.relative(process.cwd(), skillsDest)}`);
-    console.log("\nNext: add ANYCRAWL_API_KEY_DEV=... to your .env.local");
+    if (includesAnycrawl) {
+      console.log("\nNext: add ANYCRAWL_API_KEY_DEV=... to your .env.local");
+    }
+    if (includesSymphony) {
+      console.log("Next: run /codex-symphony inside your target repo and fill the required LINEAR_* env vars");
+    }
     console.log("Docs: https://github.com/Citedy/skills");
   }
 }

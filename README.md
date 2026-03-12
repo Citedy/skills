@@ -52,6 +52,7 @@ npx @citedy/skills list
 | `icons` | `/icon-design` | Select semantically appropriate icons (Lucide/Heroicons/Phosphor) |
 | `domains` | `/domain-hunter` | Search domains, compare prices, find promo codes |
 | `skill-eval` | `/skill-eval` | Validate slash command quality (frontmatter, jargon, descriptions) |
+| `symphony` | `/codex-symphony` | Bootstrap local OpenAI Symphony + Linear orchestration for any repo |
 
 ### Agent Team Skills (Claude Code only)
 
@@ -107,6 +108,35 @@ Each skill returns a structured JSON artifact saved to `/tmp/` with:
 - Node.js 18+
 - [AnyCrawl](https://anycrawl.dev) API key
 - [Claude Code](https://claude.com/claude-code) or [Codex](https://openai.com/codex)
+
+## Symphony Skill
+
+The `symphony` skill is different from the extraction skills. It bootstraps local OpenAI Symphony orchestration into the current repository and installs:
+
+- `WORKFLOW.symphony.md`
+- `scripts/symphony/*`
+- `.env.symphony.example`
+- `codex-symphony` wrapper in `~/.local/bin`
+
+Install just that skill:
+
+```bash
+npx @citedy/skills install symphony
+```
+
+Then in your target repo:
+
+```bash
+/codex-symphony
+```
+
+You will still need your own:
+
+- `LINEAR_API_KEY`
+- `LINEAR_PROJECT_SLUG`
+- `SOURCE_REPO_URL`
+- `SYMPHONY_WORKSPACE_ROOT`
+- optional `GH_TOKEN`
 
 ## License
 
