@@ -1,0 +1,61 @@
+name: Publish NPM Package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+      - bin/**
+      - commands/**
+      - package.json
+      - skills/**
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Determine if publish is needed
+        id: version_check
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOCAL_VERSION="$(node -p "require('./package.json').version")"
+          REMOTE_VERSION="$(npm view @citedy/skills version 2>/dev/null || echo 0.0.0)"
+          echo "local=$LOCAL_VERSION" >> "$GITHUB_OUTPUT"
+          echo "remote=$REMOTE_VERSION" >> "$GITHUB_OUTPUT"
+          LOCAL_VERSION="$LOCAL_VERSION" REMOTE_VERSION="$REMOTE_VERSION" node - <<'NODE' >> "$GITHUB_OUTPUT"
+          const local = process.env.LOCAL_VERSION.split(".").map(Number);
+          const remote = process.env.REMOTE_VERSION.split(".").map(Number);
+          let needs = false;
+          for (let i = 0; i < 3; i += 1) {
+            const l = local[i] || 0;
+            const r = remote[i] || 0;
+            if (l > r) {
+              needs = true;
+              break;
+            }
+            if (l < r) {
+              needs = false;
+              break;
+            }
+          }
+          console.log(`publish_needed=${needs ? "true" : "false"}`);
+          NODE
+
+      - name: Publish package
+        if: steps.version_check.outputs.publish_needed == 'true'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
