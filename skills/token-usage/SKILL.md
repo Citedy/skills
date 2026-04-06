@@ -36,32 +36,38 @@ python3 .claude/skills/token-usage/scripts/analyze.py $ARGUMENTS
 | Date | `2026-04-01` | Since that date |
 | Datetime | `2026-04-01 11:00` | Since that datetime |
 
+### Additional flags
+
+- `--compare` — show current period vs previous period of same length
+
+Example: `--compare week` shows this week vs last week.
+
 ### Output
 
 The script prints a summary to stdout and saves a detailed report to:
 ```
-~/.claude/plugins/token-usage/reports/token_report.md
+~/.claude/token-usage-reports/token_report.md
 ```
 
 ## Cost Estimation
 
-Estimates use Claude Opus 4 pricing (per million tokens):
+Prices are per million tokens, detected automatically per model:
 
-| Token Type | Price/M |
-|-----------|---------|
-| Input | $15.00 |
-| Cache creation | $18.75 |
-| Cache read | $1.50 |
-| Output | $75.00 |
+| Model | Input | Cache Create | Cache Read | Output |
+|-------|-------|-------------|------------|--------|
+| Opus | $15.00 | $18.75 | $1.50 | $75.00 |
+| Sonnet | $3.00 | $3.75 | $0.30 | $15.00 |
+| Haiku | $0.80 | $1.00 | $0.08 | $4.00 |
 
-> Actual costs may differ based on model (Sonnet = ~5x cheaper, Haiku = ~25x cheaper) and plan discounts.
+The analyzer reads the `model` field from each assistant message and applies correct pricing automatically.
 
 ## What the Report Includes
 
 1. **Grand totals** — tokens, estimated cost, session count
-2. **Per-project breakdown** — tokens, cost, subagent count per project
-3. **Most costly sessions** — ranked by estimated cost with first prompt preview
-4. **Subagent analysis** — which subagents consumed the most tokens
+2. **Model breakdown** — cost split by opus/sonnet/haiku with percentages
+3. **Per-project breakdown** — tokens, cost, subagent count per project
+4. **Period comparison** — current vs previous period (with `--compare`)
+5. **Most costly sessions** — ranked by estimated cost with first prompt preview
 
 ## Tips for Reducing Usage
 
