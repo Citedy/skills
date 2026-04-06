@@ -63,6 +63,11 @@ const CATALOG = {
     command: "codex-symphony.md",
     description: "Bootstrap local OpenAI Symphony + Linear orchestration",
   },
+  "token-usage": {
+    skill: "token-usage",
+    command: "token-usage.md",
+    description: "Analyze Claude Code token usage and estimated costs",
+  },
 };
 
 function copyDirSync(src, dest) {

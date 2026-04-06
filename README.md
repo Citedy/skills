@@ -53,6 +53,7 @@ npx @citedy/skills list
 | `domains` | `/domain-hunter` | Search domains, compare prices, find promo codes |
 | `skill-eval` | `/skill-eval` | Validate slash command quality (frontmatter, jargon, descriptions) |
 | `symphony` | `/codex-symphony` | Bootstrap local OpenAI Symphony + Linear orchestration for any repo |
+| `token-usage` | `/token-usage` | Analyze Claude Code token consumption and estimated costs |
 
 ### Agent Team Skills (Claude Code only)
 
