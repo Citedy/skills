@@ -54,6 +54,7 @@ npx @citedy/skills list
 | `skill-eval` | `/skill-eval` | Validate slash command quality (frontmatter, jargon, descriptions) |
 | `symphony` | `/codex-symphony` | Bootstrap local OpenAI Symphony + Linear orchestration for any repo |
 | `token-usage` | `/token-usage` | Analyze Claude Code token consumption and estimated costs |
+| `prompt-analyzer` | `/prompt-analyzer` | Analyze prompts for constraint complexity, audit risks, and generate optimized rewrites for Claude/GPT |
 
 ### Agent Team Skills (Claude Code only)
 
@@ -109,6 +110,28 @@ Each skill returns a structured JSON artifact saved to `/tmp/` with:
 - Node.js 18+
 - [AnyCrawl](https://anycrawl.dev) API key
 - [Claude Code](https://claude.com/claude-code) or [Codex](https://openai.com/codex)
+
+## Prompt Analyzer Skill
+
+The `prompt-analyzer` skill applies findings from ["How LLMs Follow Instructions: Skillful Coordination, Not a Universal Mechanism"](https://arxiv.org/abs/2604.06015) (Rocchetti & Ferrara, 2026) to audit and optimize prompts.
+
+**What it does:**
+1. Decomposes prompts into constraint types (structural, lexical, semantic, stylistic)
+2. Scores complexity: Constraint Density, Cross-Type Mixing Index, Order Risk
+3. Audits for conflicts, ambiguity, implicit constraints, and model-specific risks
+4. Generates optimized rewrites — separate variants for Claude and GPT
+
+**Usage:**
+```
+/prompt-analyzer path/to/prompts.md
+```
+
+The file can contain multiple prompts separated by `---`. Works with plain text, system prompts, and structured files (JSON/YAML).
+
+Install just this skill:
+```bash
+npx @citedy/skills install prompt-analyzer
+```
 
 ## Symphony Skill
 
