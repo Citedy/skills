@@ -68,6 +68,11 @@ const CATALOG = {
     command: "token-usage.md",
     description: "Analyze Claude Code token usage and estimated costs",
   },
+  "adclaw-host-ai-accounting": {
+    skill: "adclaw-host-ai-accounting",
+    command: "adclaw-host-ai-accounting.md",
+    description: "Review AdClaw Host AI quotas, hosted keys, limits, and redaction",
+  },
 };
 
 function copyDirSync(src, dest) {

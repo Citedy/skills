@@ -55,6 +55,7 @@ npx @citedy/skills list
 | `symphony` | `/codex-symphony` | Bootstrap local OpenAI Symphony + Linear orchestration for any repo |
 | `token-usage` | `/token-usage` | Analyze Claude Code token consumption and estimated costs |
 | `prompt-analyzer` | `/prompt-analyzer` | Analyze prompts for constraint complexity, audit risks, and generate optimized rewrites for Claude/GPT |
+| `adclaw-host-ai-accounting` | `/adclaw-host-ai-accounting` | Review AdClaw Host AI quotas, hosted keys, limits, and redaction |
 
 ### Agent Team Skills (Claude Code only)
 

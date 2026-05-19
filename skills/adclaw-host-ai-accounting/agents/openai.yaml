@@ -1,0 +1,6 @@
+interface:
+  display_name: "AdClaw Host AI Accounting"
+  short_description: "Audit Host AI quota and key accounting"
+  default_prompt: "Use $adclaw-host-ai-accounting to audit AdClaw Host included AI quota accounting, Citedy key provisioning, and redaction boundaries."
+policy:
+  allow_implicit_invocation: true
